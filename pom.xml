@@ -5,7 +5,6 @@
     <groupId>com.logic.passinterview</groupId>
     <artifactId>passinterview</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>passinterview</name>
     <description>面必过-聚合服务</description>
     <packaging>pom</packaging>
     <modules>
@@ -14,5 +13,8 @@
         <module>passinterview-content</module>
         <module>passinterview-question</module>
         <module>passinterview-member</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>passinterview-common</module>
     </modules>
 </project>
