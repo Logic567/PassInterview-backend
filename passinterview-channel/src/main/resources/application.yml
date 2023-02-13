@@ -4,6 +4,12 @@ spring:
     url: jdbc:mysql://192.168.245.129:3306/passinterview_chms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: passinterview-channel
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
