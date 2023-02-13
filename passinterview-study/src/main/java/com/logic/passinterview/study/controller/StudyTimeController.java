@@ -81,4 +81,13 @@ public class StudyTimeController {
         return R.ok();
     }
 
+    @RequestMapping("/member/list/test/{id}")
+    public R memberStudyTimeTest(@PathVariable("id") Long id){
+        StudyTimeEntity studyTimeEntity = new StudyTimeEntity();
+        studyTimeEntity.setTotalTime(100);
+        studyTimeEntity.setQuesType(1L);
+
+        return R.ok().put("studytime",Arrays.asList(studyTimeEntity));
+    }
+
 }
