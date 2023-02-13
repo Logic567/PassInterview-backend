@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.logic.passinterview.question.entity.QuestionEntity;
 import com.logic.passinterview.question.service.QuestionService;
 
+import javax.validation.Valid;
 
 
 /**
@@ -55,7 +56,7 @@ public class QuestionController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody QuestionEntity question){
+    public R save(@Valid @RequestBody QuestionEntity question){
 		questionService.save(question);
 
         return R.ok();

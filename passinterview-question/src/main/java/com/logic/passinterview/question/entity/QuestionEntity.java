@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
+import javax.validation.constraints.Positive;
+
 /**
  * 
  * 
@@ -39,6 +41,7 @@ public class QuestionEntity implements Serializable {
 	/**
 	 * 排序
 	 */
+	@Positive
 	private Integer displayOrder;
 	/**
 	 * 副标题
