@@ -16,5 +16,6 @@
         <module>renren-fast</module>
         <module>renren-generator</module>
         <module>passinterview-common</module>
+        <module>passinterview-gateway</module>
     </modules>
 </project>
