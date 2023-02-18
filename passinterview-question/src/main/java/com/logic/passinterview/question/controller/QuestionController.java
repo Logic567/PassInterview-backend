@@ -48,7 +48,7 @@ public class QuestionController {
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id){
 		QuestionEntity question = questionService.getById(id);
-
+//        throw new Exception("test");//测试自定义异常
         return R.ok().put("question", question);
     }
 
