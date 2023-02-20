@@ -85,7 +85,7 @@ public class StudyTimeController {
     public R memberStudyTimeTest(@PathVariable("id") Long id){
         StudyTimeEntity studyTimeEntity = new StudyTimeEntity();
         studyTimeEntity.setTotalTime(100);
-        studyTimeEntity.setQuesType(1L);
+        studyTimeEntity.setQuesType(id);
 
         return R.ok().put("studytime",Arrays.asList(studyTimeEntity));
     }
