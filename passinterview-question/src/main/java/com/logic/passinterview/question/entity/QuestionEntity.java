@@ -37,6 +37,7 @@ public class QuestionEntity implements Serializable {
 	/**
 	 * 题目难度等级
 	 */
+	@Positive
 	private Integer level;
 	/**
 	 * 排序

@@ -1,5 +1,6 @@
 package com.logic.passinterview.question.exception;
 
+import com.logic.passinterview.common.exception.BizCodeEnum;
 import com.logic.passinterview.common.utils.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;

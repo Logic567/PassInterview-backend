@@ -57,7 +57,7 @@ public class QuestionController {
      */
     @RequestMapping("/save")
     public R save(@Valid @RequestBody QuestionEntity question){
-		questionService.save(question);
+		questionService.saveQuestion(question);
 
         return R.ok();
     }
@@ -67,7 +67,7 @@ public class QuestionController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody QuestionEntity question){
-		questionService.updateById(question);
+		questionService.updateQuestion(question);
 
         return R.ok();
     }
