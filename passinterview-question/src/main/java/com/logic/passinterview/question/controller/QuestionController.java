@@ -36,8 +36,9 @@ public class QuestionController {
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
+        long time = System.currentTimeMillis();
         PageUtils page = questionService.queryPage(params);
-
+        System.out.println("耗时：" + (System.currentTimeMillis() - time));
         return R.ok().put("page", page);
     }
 
@@ -80,6 +81,11 @@ public class QuestionController {
 		questionService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
     }
 
 }
