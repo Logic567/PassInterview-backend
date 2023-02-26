@@ -8,10 +8,13 @@ import com.logic.passinterview.question.service.TypeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.UUID;
 
 @SpringBootTest
 class PassinterviewQuestionApplicationTests {
@@ -62,5 +65,20 @@ class PassinterviewQuestionApplicationTests {
         InputStream inputStream = new FileInputStream(localFile);
         ossClient.putObject(bucketName,fileKeyName,inputStream);
         ossClient.shutdown();
+    }
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
+
+    //测试 redis
+    @Test
+    public void testStringRedisTemplate(){
+        //初始化 redis 组件
+        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        //存储数据
+        ops.set("name","sy" + UUID.randomUUID().toString());
+        //查询数据
+        String name = ops.get("name");
+        System.out.println(name);
     }
 }

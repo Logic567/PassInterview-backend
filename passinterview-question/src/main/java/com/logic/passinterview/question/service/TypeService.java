@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.logic.passinterview.common.utils.PageUtils;
 import com.logic.passinterview.question.entity.TypeEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,9 @@ import java.util.Map;
 public interface TypeService extends IService<TypeEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<TypeEntity> getTypeEntityList();
+
+    List<TypeEntity> getTypeEntityListByLock();
 }
 
