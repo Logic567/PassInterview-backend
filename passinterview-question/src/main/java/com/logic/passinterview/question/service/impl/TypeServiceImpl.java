@@ -5,14 +5,16 @@ import com.alibaba.fastjson.TypeReference;
 import com.logic.passinterview.common.utils.PageUtils;
 import com.logic.passinterview.common.utils.Query;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,6 +26,8 @@ import com.logic.passinterview.question.entity.TypeEntity;
 import com.logic.passinterview.question.service.TypeService;
 
 import javax.annotation.Resource;
+
+import static java.lang.Thread.sleep;
 
 
 @Service("typeService")
@@ -78,6 +82,36 @@ public class TypeServiceImpl extends ServiceImpl<TypeDao, TypeEntity> implements
         }
         synchronized (this) {
             return getDataFromDB();
+        }
+    }
+
+    /**
+     * 分布式锁 Lua 脚本方案
+     * @return
+     * @throws InterruptedException
+     */
+    @Override
+    public List<TypeEntity> getTypeEntityListByRedisDistributedLock() throws InterruptedException {
+        //1.生成唯一 id
+        String uuid = UUID.randomUUID().toString();
+        //2.抢占锁
+        Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent("lock",uuid,10,TimeUnit.SECONDS);
+        if (lock){
+            System.out.println("抢占成功：" +uuid);
+            //3.抢占成功，执行业务
+            List<TypeEntity> typeEntityListFromDb = getDataFromDB();
+            //4.Lua 脚本解锁
+            String script = "if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
+            stringRedisTemplate.execute(new DefaultRedisScript<>(script,Long.class), Arrays.asList("lock"),uuid);
+            System.out.println("解锁成功：" + uuid);
+
+            return typeEntityListFromDb;
+        }else {
+            System.out.println("抢占失败，等待锁释放");
+            //4.休眠一段时间
+            sleep(100);
+            //5.抢占失败，等待锁释放
+            return getTypeEntityListByRedisDistributedLock();
         }
     }
 
