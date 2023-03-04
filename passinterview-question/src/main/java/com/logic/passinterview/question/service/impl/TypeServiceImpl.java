@@ -5,6 +5,9 @@ import com.alibaba.fastjson.TypeReference;
 import com.logic.passinterview.common.utils.PageUtils;
 import com.logic.passinterview.common.utils.Query;
 import org.apache.commons.lang.StringUtils;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -32,6 +35,9 @@ import static java.lang.Thread.sleep;
 
 @Service("typeService")
 public class TypeServiceImpl extends ServiceImpl<TypeDao, TypeEntity> implements TypeService {
+
+    @Autowired
+    RedissonClient redisson;
 
     @Qualifier("stringRedisTemplate")
     @Resource
@@ -113,6 +119,32 @@ public class TypeServiceImpl extends ServiceImpl<TypeDao, TypeEntity> implements
             //5.抢占失败，等待锁释放
             return getTypeEntityListByRedisDistributedLock();
         }
+    }
+
+    /**
+     * 分布式锁 Redisson 方案
+     * @return
+     */
+    @Override
+    public List<TypeEntity> getTypeEntityListByRedissonDistributedLock() {
+        //1.设置分布式锁
+        RLock lock = redisson.getLock("lock");
+        //2.占用锁
+        lock.lock();
+        System.out.println("加锁成功，执行后续代码。线程 ID：" + Thread.currentThread().getId());
+        List<TypeEntity> typeEntityListFromDb = null;
+        try {
+            //3.获取数据
+            typeEntityListFromDb = getDataFromDB();
+            Thread.sleep(10000);
+        }catch (Exception e){
+            System.out.println("异常");
+        }finally {
+            //4.释放锁
+            System.out.println("释放成功，执行后续代码。线程 ID：" + Thread.currentThread().getId());
+            lock.unlock();
+        }
+        return typeEntityListFromDb;
     }
 
     private List<TypeEntity> getDataFromDB() {

@@ -62,9 +62,19 @@ public class TypeAppController {
      * @return
      * @throws InterruptedException
      */
-    @RequestMapping("list-by-redis-distributed-lock")
+    @RequestMapping("/list-by-redis-distributed-lock")
     public R listByRedisDistributedLock() throws InterruptedException {
         List<TypeEntity> typeEntityList = typeService.getTypeEntityListByRedisDistributedLock();
+        return R.ok().put("typeEntityList",typeEntityList);
+    }
+
+    /**
+     * 查询题目类型列表 by redisson 分布式锁
+     * @return
+     */
+    @RequestMapping("/list-by-redisson-distributed-lock")
+    public R listByRedissonDistributedLock() throws InterruptedException{
+        List<TypeEntity> typeEntityList = typeService.getTypeEntityListByRedissonDistributedLock();
         return R.ok().put("typeEntityList",typeEntityList);
     }
 }

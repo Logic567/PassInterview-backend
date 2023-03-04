@@ -6,6 +6,7 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.logic.passinterview.question.entity.TypeEntity;
 import com.logic.passinterview.question.service.TypeService;
 import org.junit.jupiter.api.Test;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,6 +22,9 @@ class PassinterviewQuestionApplicationTests {
 
     @Autowired
     TypeService typeService;
+
+    @Autowired
+    RedissonClient redissonClient;
 
     @Test
     void testCreateType() {
@@ -80,5 +84,10 @@ class PassinterviewQuestionApplicationTests {
         //查询数据
         String name = ops.get("name");
         System.out.println(name);
+    }
+
+    @Test
+    public void TestRedisson(){
+        System.out.println(redissonClient);
     }
 }

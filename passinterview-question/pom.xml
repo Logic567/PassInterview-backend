@@ -18,6 +18,11 @@
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.15.5</version>
+        </dependency>
         <!--redis 缓存-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
