@@ -83,9 +83,4 @@ public class QuestionController {
         return R.ok();
     }
 
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
-    }
-
 }
