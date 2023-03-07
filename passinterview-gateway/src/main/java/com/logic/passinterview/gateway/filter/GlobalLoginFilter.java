@@ -14,7 +14,8 @@ import reactor.core.publisher.Mono;
 public class GlobalLoginFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        ServerHttpRequest request = exchange.getRequest();
+        return chain.filter(exchange);
+        /*ServerHttpRequest request = exchange.getRequest();
         String token = request.getHeaders().getFirst("token");
         if (!StringUtils.isEmpty(token)){
             if ("admin".equals(token)){
@@ -22,7 +23,7 @@ public class GlobalLoginFilter implements GlobalFilter, Ordered {
             }
         }
         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-        return exchange.getResponse().setComplete();
+        return exchange.getResponse().setComplete();*/
     }
 
     @Override

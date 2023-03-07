@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * 系统用户实体类
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
