@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    include: jwt
+  datasource:
+    url: jdbc:mysql://10.119.197.214:3306/passinterview_auth?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database: mysql
+    show-sql: true
+
+logging:
+  level:
+    com.sy.passinterview: debug
