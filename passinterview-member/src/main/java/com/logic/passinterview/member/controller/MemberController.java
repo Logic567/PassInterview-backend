@@ -5,7 +5,10 @@ import java.util.Map;
 
 import com.logic.passinterview.common.utils.PageUtils;
 import com.logic.passinterview.common.utils.R;
+import com.logic.passinterview.common.utils.SecurityUtils;
+import com.logic.passinterview.common.utils.ServletUtils;
 import com.logic.passinterview.member.feign.StudyTimeFeignService;
+import com.logic.passinterview.jwt.utils.PassInterviewJwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.logic.passinterview.member.entity.MemberEntity;
 import com.logic.passinterview.member.service.MemberService;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -28,11 +33,28 @@ import com.logic.passinterview.member.service.MemberService;
 @RestController
 @RequestMapping("member/member")
 public class MemberController {
+
+    @Resource
+    private PassInterviewJwtTokenUtil jwtTokenUtil;
+
     @Autowired
     private MemberService memberService;
 
     @Autowired
     private StudyTimeFeignService studyTimeFeignService;
+
+    @RequestMapping("/userinfo")
+    public R info(){
+        //方式一：从 request 里面，推荐方式二
+        HttpServletRequest request = ServletUtils.getRequest();
+        String userId = jwtTokenUtil.getUserIdFromRequest(request);
+
+        //方式二：从线程里面拿，依赖自定义拦截器
+        String userId1 = SecurityUtils.getUserId();
+        MemberEntity member = memberService.getMemberByUserId(userId1);
+
+        return R.ok().put("member",member);
+    }
 
     /**
      * 列表

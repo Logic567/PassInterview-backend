@@ -69,7 +69,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sy.passinterview</groupId>
+            <groupId>com.logic.passinterview</groupId>
             <artifactId>passinterview-jwt</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

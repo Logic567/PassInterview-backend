@@ -8,7 +8,7 @@ spring:
 
 logging:
   level:
-    com.sy.passinterview: debug
+    com.logic.passinterview: debug
     org:
       springframework:
         cloud:

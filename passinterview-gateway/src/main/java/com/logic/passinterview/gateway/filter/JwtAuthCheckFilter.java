@@ -2,11 +2,11 @@ package com.logic.passinterview.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.logic.passinterview.common.constant.Constants;
-import com.sy.passinterview.jwt.common.ResponseCodeEnum;
-import com.sy.passinterview.jwt.common.ResponseResult;
-import com.sy.passinterview.jwt.config.PassInterviewJwtProperties;
-import com.sy.passinterview.jwt.constants.TokenConstants;
-import com.sy.passinterview.jwt.utils.PassInterviewJwtTokenUtil;
+import com.logic.passinterview.jwt.common.ResponseCodeEnum;
+import com.logic.passinterview.jwt.common.ResponseResult;
+import com.logic.passinterview.jwt.config.PassInterviewJwtProperties;
+import com.logic.passinterview.jwt.constants.TokenConstants;
+import com.logic.passinterview.jwt.utils.PassInterviewJwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
