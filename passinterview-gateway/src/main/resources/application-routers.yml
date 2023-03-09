@@ -2,24 +2,41 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: route_auth # 认证微服务路由规则
+          uri: lb://passinterview-auth # 负载均衡，将请求转发到注册中心注册的 passinterview-auth 服务
+          predicates: # 断言
+            - Path=/api/auth/** # 如果前端请求路径包含 api/auth，则应用这条路由规则
+          filters: #过滤器
+            - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的api替换成空
+
+        - id: route_member # 会员微服务路由规则
+          uri: lb://passinterview-member # 负载均衡，将请求转发到注册中心注册的 passinterview-member 服务
+          predicates: # 断言
+            - Path=/api/member/** # 如果前端请求路径包含 api/member，则应用这条路由规则
+          filters: #过滤器
+            - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的 api 替换成空
+
         - id: route_question # 题目微服务路由规则
           uri: lb://passinterview-question # 负载均衡，将请求转发到注册中心注册的passinterview-question服务
           predicates: # 断言
             - Path=/api/question/** # 如果前端请求路径包含 api/question，则应用这条路由规则
           filters: #过滤器
             - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的 api 替换成空
+
         - id: route_thirdparty # 题目微服务路由规则
           uri: lb://passinterview-thirdparty # 负载均衡，将请求转发到注册中心注册的passinterview-thirdparty服务
           predicates: # 断言
             - Path=/api/thirdparty/** # 如果前端请求路径包含 api/thirdparty，则应用这条路由规则
           filters: #过滤器
             - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的 api 替换成空
+
         - id: route_search # 题目微服务路由规则
           uri: lb://passjava-search # 负载均衡，将请求转发到注册中心注册的 passjava-search 服务
           predicates: # 断言
             - Path=/api/search/** # 如果前端请求路径包含 api/question，则应用这条路由规则
           filters: #过滤器
             - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的api替换成空
+
         - id: route_portal # 路由规则id
           uri: lb://renren-fast # 负载均衡，renren-fast服务
           predicates: # 断言

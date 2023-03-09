@@ -66,8 +66,15 @@ public class JwtAuthCheckFilter {
             // 从 HTTP 请求头中获取 JWT 令牌
             String token = getToken(serverHttpRequest);
             if (StringUtils.isEmpty(token)){
+                return unauthorizedResponse(exchange,serverHttpResponse,ResponseCodeEnum.TOKEN_MISSION);
+            }
+
+            // 对Token解签名，并验证Token是否过期
+            Boolean isJwtNotValid = jwtTokenUtil.isTokenExpired(token);
+            if (isJwtNotValid){
                 return unauthorizedResponse(exchange,serverHttpResponse,ResponseCodeEnum.TOKEN_INVALID);
             }
+
             // 验证 token 里面的 userId 是否为空
             String userId = jwtTokenUtil.getUserIdFromToken(token);
             String username = jwtTokenUtil.getUserNameFromToken(token);

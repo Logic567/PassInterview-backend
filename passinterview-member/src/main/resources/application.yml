@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    include: jwt
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.0.192:3306/passinterview_ums?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false

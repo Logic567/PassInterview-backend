@@ -149,7 +149,7 @@ public class PassInterviewJwtTokenUtil {
         Date expirationDate = new Date(System.currentTimeMillis() + jwtProperties.getExpiration() * 2);
         return Jwts.builder().setClaims(claims)
                 .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.ES512, jwtProperties.getSecret())
+                .signWith(SignatureAlgorithm.HS512, jwtProperties.getSecret())//两种加密算法必须一致
                 .compact();
     }
 
