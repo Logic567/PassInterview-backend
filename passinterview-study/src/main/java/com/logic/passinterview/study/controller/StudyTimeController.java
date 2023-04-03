@@ -1,8 +1,10 @@
 package com.logic.passinterview.study.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.logic.passinterview.common.utils.PageUtils;
 import com.logic.passinterview.common.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,11 +85,14 @@ public class StudyTimeController {
 
     @RequestMapping("/member/list/test/{id}")
     public R memberStudyTimeTest(@PathVariable("id") Long id){
-        StudyTimeEntity studyTimeEntity = new StudyTimeEntity();
+        /*StudyTimeEntity studyTimeEntity = new StudyTimeEntity();
         studyTimeEntity.setTotalTime(100);
-        studyTimeEntity.setQuesType(id);
+        studyTimeEntity.setQuesType(id);*/
+        QueryWrapper<StudyTimeEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("member_id",id);
+        List<StudyTimeEntity> studyTimeEntityList = studyTimeService.list(queryWrapper);
 
-        return R.ok().put("studytime",Arrays.asList(studyTimeEntity));
+        return R.ok().put("studytime",studyTimeEntityList);
     }
 
 }

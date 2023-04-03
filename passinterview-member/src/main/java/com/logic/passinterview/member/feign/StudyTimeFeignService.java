@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("passinterview-study")
 public interface StudyTimeFeignService {
 
-    @RequestMapping("study/studytime/member/list/test/{id}")
+    @RequestMapping("study/studytime/member/list/test/{id}")//调用的方法的路径
     public R getMemberStudyTimeListTest(@PathVariable("id") Long id);
 }

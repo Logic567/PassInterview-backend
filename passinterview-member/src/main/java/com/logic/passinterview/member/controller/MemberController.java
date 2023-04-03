@@ -3,6 +3,7 @@ package com.logic.passinterview.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.logic.passinterview.common.utils.PageUtils;
 import com.logic.passinterview.common.utils.R;
 import com.logic.passinterview.common.utils.SecurityUtils;
@@ -110,10 +111,13 @@ public class MemberController {
     @RequestMapping("/studytime/list/test/{id}")
     public R getMemberStudyTimeListTest(@PathVariable("id") Long id){
         //mock数据库查到的会员信息
-        MemberEntity memberEntity = new MemberEntity();
+//        MemberEntity memberEntity = new MemberEntity();
         //学习时长：100分钟
-        memberEntity.setId(id);
-        memberEntity.setNickname("与天争锋");
+//        memberEntity.setId(id);
+//        memberEntity.setNickname("与天争锋");
+        QueryWrapper<MemberEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        MemberEntity memberEntity = memberService.getOne(queryWrapper);
 
         //远程调用拿到该用户的学习时长
         R memberStudyTimeList = studyTimeFeignService.getMemberStudyTimeListTest(id);

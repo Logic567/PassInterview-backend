@@ -2,7 +2,7 @@ spring:
   profiles:
     include: jwt
   datasource:
-    url: jdbc:mysql://192.168.0.192:3306/passinterview_auth?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://192.168.245.129:3306/passinterview_auth?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,7 +12,7 @@ spring:
     database: mysql
     show-sql: true
   redis:
-    host: 192.168.0.192
+    host: 192.168.245.129
     port: 6379
 
 logging:

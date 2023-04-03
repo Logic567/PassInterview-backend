@@ -14,6 +14,6 @@ public class PassInterviewElasticsearchConfig {
     public RestHighLevelClient restHighLevelClient(){
         return new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost("192.168.0.192",9200,"http")));
+                        new HttpHost("192.168.245.129",9200,"http")));
     }
 }
